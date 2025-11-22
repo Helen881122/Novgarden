@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/css/lingnan.scss' | relative_url }}">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="spotlight-overlay"></div>
+  
+  <header class="header">
+    <div class="container">
+      <h1>{{ site.title }}</h1>
+      <p>{{ site.description }}</p>
+    </div>
+  </header>
+
+  <nav class="nav">
+    {% for page_path in site.header_pages %}
+      {% assign nav_page = site.pages | where: "path", page_path | first %}
+      {% if nav_page.title %}
+        <a href="{{ nav_page.url | relative_url }}">{{ nav_page.title }}</a>
+      {% endif %}
+    {% endfor %}
+  </nav>
+
+  <main class="main container">
+    {{ content }}
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>{{ site.footer_text }}</p>
+    </div>
+  </footer>
+
+  <script>
+    // 聚光灯效果
+    document.addEventListener('mousemove', function(e) {
+      const overlay = document.querySelector('.spotlight-overlay');
+      if (overlay) {
+        overlay.style.setProperty('--mouse-x', e.clientX + 'px');
+        overlay.style.setProperty('--mouse-y', e.clientY + 'px');
+      }
+    });
+
+    // 存档预览功能
+    function openPreview(url) {
+      document.getElementById('previewFrame').src = url;
+      document.getElementById('previewModal').style.display = 'block';
+    }
+
+    function closePreview() {
+      document.getElementById('previewModal').style.display = 'none';
+      document.getElementById('previewFrame').src = '';
+    }
+
+    // 点击模态框外部关闭
+    window.onclick = function(event) {
+      const modal = document.getElementById('previewModal');
+      if (event.target == modal) {
+        closePreview();
+      }
+    }
+  </script>
+</body>
+</html>
