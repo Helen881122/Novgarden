@@ -1,0 +1,22 @@
+title: "剧场园林"
+description: "岭南风格与剧院元素的摄影作品网站"
+baseurl: ""
+url: "https://Helen881122.github.io"
+theme: minimal
+
+# 网站结构
+header_pages:
+  - index.md
+  - gallery.md
+  - blog.md
+  - archive.md
+  - about.md
+
+# 自定义设置
+color_scheme: "lingnan"
+footer_text: "© 2024 剧场园林 · 岭南风格摄影"
+
+# 插件
+plugins:
+  - jekyll-feed
+    
