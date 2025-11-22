@@ -1,0 +1,120 @@
+---
+---
+
+// 岭南风格色彩体系
+$lingnan-colors: (
+  "brick-red": #B54F42,      // 红砖色
+  "grey-tile": #8C8C8C,      // 灰瓦色
+  "white-wall": #F5F1E6,     // 白墙色
+  "dark-wood": #5D4037,      // 深木色
+  "green-glaze": #7BA57B,    // 绿琉璃
+  "blue-glaze": #5D8CA8,     // 蓝琉璃
+  "gold-accent": #D4B15B     // 金色点缀
+);
+
+// 聚光灯效果变量
+$spotlight-size: 300px;
+$spotlight-blur: 50px;
+
+// 基础样式
+body {
+  background-color: map-get($lingnan-colors, "white-wall");
+  color: #333;
+  font-family: "Noto Serif SC", "SimSun", serif;
+  line-height: 1.6;
+}
+
+// 镬耳山墙样式的头部
+.header {
+  background: linear-gradient(135deg, 
+    map-get($lingnan-colors, "grey-tile") 0%,
+    map-get($lingnan-colors, "brick-red") 100%);
+  padding: 2rem 0;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M0,0 Q25,20 50,0 T100,0 V20 H0 Z" fill="%235D4037"/></svg>') repeat-x;
+  }
+}
+
+// 满洲窗效果的导航
+.nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1px;
+  background: map-get($lingnan-colors, "dark-wood");
+  padding: 1px;
+  
+  a {
+    background: map-get($lingnan-colors, "white-wall");
+    padding: 1rem;
+    text-align: center;
+    text-decoration: none;
+    color: map-get($lingnan-colors, "dark-wood");
+    transition: all 0.3s ease;
+    position: relative;
+    
+    &:hover {
+      background: map-get($lingnan-colors, "gold-accent");
+      color: #fff;
+    }
+  }
+}
+
+// 聚光灯效果容器
+.spotlight-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--mouse-x) var(--mouse-y),
+    transparent 0%,
+    rgba(0, 0, 0, 0.1) $spotlight-size,
+    rgba(0, 0, 0, 0.3) calc($spotlight-size + $spotlight-blur)
+  );
+  z-index: 1000;
+  mix-blend-mode: multiply;
+}
+
+// 砖雕效果的边框
+.brick-border {
+  border: 2px solid map-get($lingnan-colors, "brick-red");
+  position: relative;
+  padding: 1rem;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 1px solid map-get($lingnan-colors, "gold-accent");
+    pointer-events: none;
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .nav {
+    grid-template-columns: 1fr;
+  }
+  
+  $spotlight-size: 150px;
+  $spotlight-blur: 30px;
+}
